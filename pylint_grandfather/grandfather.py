@@ -1,16 +1,25 @@
+"""
+Main code
+"""
+import os
+import re
+from collections import defaultdict
+from typing import Iterable, TextIO
+
+
 def build_pylint_map(lines: Iterable[str]):
     """
     Generates a map of file name to a list of tuples of (line number, error type)
     :param lines: Iterable of lines from the pylint output
     :return: Map of files to (line number, error type)
     """
-    line_regex = re.compile('^(.*?):(\d+):\s*\[[\w\d]+\(([\w-]+)\),\s+')
+    line_regex = re.compile(r'^(.*?):(\d+):\s*\[[\w\d]+\(([\w-]+)\),\s+')
     all_matches = [line_regex.match(line) for line in lines]
-    matches = [m for m in all_matches if m is not None]
+    matches = [match for match in all_matches if match is not None]
 
     result = defaultdict(list)
-    for m in matches:
-        result[m.group(1)].append((int(m.group(2)), m.group(3)))
+    for match in matches:
+        result[match.group(1)].append((int(match.group(2)), match.group(3)))
 
     return result
 
