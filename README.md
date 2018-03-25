@@ -27,3 +27,6 @@ optional arguments:
   --dry-run DRY_RUN    Output what files will be changed, but do not change
                        them
 ```
+
+# Release Notes
+* 1.0.0 - Initial version
